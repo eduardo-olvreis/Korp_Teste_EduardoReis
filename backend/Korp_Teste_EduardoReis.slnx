@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Korp_Faturamento_API/Korp.Estoque.API.csproj" />
+  <Project Path="Korp_Teste_EduardoReis/Korp.Faturamento.API.csproj" />
+</Solution>
