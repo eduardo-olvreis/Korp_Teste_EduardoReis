@@ -51,6 +51,7 @@ namespace Korp.Estoque.API.Controllers
             return Ok(response);
         }
 
+        //Metodo para diminuir a quantidade de saldo em estoque
         [HttpPatch("{id}/debitar")]
         public async Task<ActionResult<ProdutoResponseDto>> DebitarEstoqueAsync(int id, [FromBody] int quantidade)
         {
