@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Korp.Estoque.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/produtos")]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoRepository _repository;
@@ -65,6 +65,25 @@ namespace Korp.Estoque.API.Controllers
                 Saldo = produto.Saldo
             };
             return Ok(response);
+        }
+
+        //Método para processar a lista da nota fical
+        [HttpPost("baixar-estoque")]
+        public async Task<IActionResult> BaixarEstoqueEmLoteAsync([FromBody] List<ItemBaixaDto> itens)
+        {
+            if (itens == null || !itens.Any())
+            {
+                return BadRequest("A lista de itens está vazia.");
+            }
+            foreach (var item in itens)
+            {
+                var sucesso = await _repository.DebitarEstoqueAsync(item.ProdutoId, item.Quantidade);
+                if (sucesso == null)
+                {
+                    return BadRequest($"Erro ao debitar produto ID {item.ProdutoId}. Verifique saldo ou existência.");
+                }
+            }
+            return Ok();
         }
     }
 }
