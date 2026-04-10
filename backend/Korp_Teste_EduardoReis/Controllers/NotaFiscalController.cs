@@ -1,6 +1,7 @@
 ﻿using Korp.Faturamento.API.DTOs;
 using Korp.Faturamento.API.Entities;
 using Korp.Faturamento.API.Repositories;
+using Korp.Faturamento.API.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Korp.Faturamento.API.Controllers
@@ -10,9 +11,11 @@ namespace Korp.Faturamento.API.Controllers
     public class NotaFiscalController : ControllerBase
     {
         private readonly INotaFiscalRepository _repository;
-        public NotaFiscalController(INotaFiscalRepository repository)
+        private readonly IEstoqueService _service;
+        public NotaFiscalController(INotaFiscalRepository repository, IEstoqueService service)
         {
             _repository = repository;
+            _service = service;
         }
 
         //Metodo para listar uma nota por ID
@@ -84,6 +87,17 @@ namespace Korp.Faturamento.API.Controllers
             return CreatedAtAction(nameof(ObterNotaPorIdAsync), new { id = response.Id }, response);
         }
 
-        [HttpPut]
+        //Método para atualizar o status da nota para fechada
+        [HttpPut("{id}/fechar")]
+        public async Task<ActionResult> AtualizarStatusParaFechadaAsync(int id)
+        {
+            var nota = await _repository.ObterNotaPorIdAsync(id);
+            if (nota == null) { return NotFound("Nenhuma nota registrada com esse ID."); }
+            if (nota.Status == "Fechada") { return BadRequest("A nota já está com o status 'Fechada'."); }
+            var sucessoEstoque = await _service.BaixarEstoqueAsync(nota.Itens);
+            if(!sucessoEstoque) { return BadRequest("Erro ao atualizar o estoque. Verifique o saldo ou a conexão com o serviço."); }
+            await _repository.AtualizarStatusParaFechadaAsync(id);
+            return Ok("Nota fiscal fechada e estoque atualizado.");
+        }
     }
 }
