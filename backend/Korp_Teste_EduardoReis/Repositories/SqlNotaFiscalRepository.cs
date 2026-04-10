@@ -22,7 +22,7 @@ namespace Korp.Faturamento.API.Repositories
             return await _context.NotasFiscais.AsNoTracking().Include(n => n.Itens).ToListAsync();
         }
 
-        public async Task<NotaFiscal> CriarNotaFiscal(NotaFiscal nota)
+        public async Task<NotaFiscal> CriarNotaFiscalAsync(NotaFiscal nota)
         {
             var temNota = await _context.NotasFiscais.AnyAsync();
             if (!temNota)

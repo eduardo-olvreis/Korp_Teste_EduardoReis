@@ -6,7 +6,7 @@ namespace Korp.Faturamento.API.Repositories
     {
         public Task<NotaFiscal?> ObterNotaPorIdAsync(int id);
         public Task<IEnumerable<NotaFiscal>> ObterTodasNotasAsync();
-        public Task<NotaFiscal> CriarNotaFiscal(NotaFiscal nota);
+        public Task<NotaFiscal> CriarNotaFiscalAsync(NotaFiscal nota);
         public Task<bool> AtualizarStatusParaFechadaAsync(int id);
     }
 }
