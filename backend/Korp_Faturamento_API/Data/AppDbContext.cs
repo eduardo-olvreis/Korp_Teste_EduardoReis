@@ -1,11 +1,12 @@
-﻿using Korp.Estoque.API.Entities;
+﻿using Korp.Faturamento.API.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Korp.Estoque.API.Data
+namespace Korp.Faturamento.API.Data
 {
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<NotaFiscal> NotasFiscais { get; set; }
+        public DbSet<ItemNotaFiscal> ItensNotaFiscal { get; set; }
     }
 }
