@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Estoque de Produtos</h2>
+</div>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Código</th>
+          <th>Descrição</th>
+          <th>Saldo em Estoque</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of produtos">
+          <td>{{ p.codigo }}</td>
+          <td>{{ p.descricao }}</td>
+          <td>
+            <span class="badge" [ngClass]="p.saldo > 0 ? 'bg-success' : 'bg-danger'">
+              {{ p.saldo }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="produtos.length === 0">
+          <td colspan="3" class="text-center text-muted">Nenhum produto encontrado no banco.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
