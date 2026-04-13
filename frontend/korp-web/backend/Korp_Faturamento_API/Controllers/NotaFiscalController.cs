@@ -19,7 +19,7 @@ namespace Korp.Faturamento.API.Controllers
         }
 
         //Metodo para listar uma nota por ID
-        [HttpGet("{id}", Name = "ObterNotaPorId")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<NotaFiscalResponseDto>> ObterNotaPorIdAsync(int id)
         {
             var nota = await _repository.ObterNotaPorIdAsync(id);
@@ -84,7 +84,7 @@ namespace Korp.Faturamento.API.Controllers
                     Quantidade = i.Quantidade
                 }).ToList()
             };
-            return CreatedAtRoute("ObterNotaPorId", new { id = response.Id }, response);
+            return CreatedAtAction(nameof(ObterNotaPorIdAsync), new { id = response.Id }, response);
         }
 
         //Método para atualizar o status da nota para fechada
