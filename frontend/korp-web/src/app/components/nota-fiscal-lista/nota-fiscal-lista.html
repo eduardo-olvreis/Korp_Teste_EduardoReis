@@ -1,1 +1,37 @@
-<p>nota-fiscal-lista works!</p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Notas Fiscais</h2>
+    <a routerLink="/notas/nova" class="btn btn-success">Nova Nota</a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Nº Sequencial</th>
+            <th>Qtd. Itens</th>
+            <th>Status</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let n of notas">
+            <td>{{ n.id }}</td>
+            <td><strong>#{{ n.numeroSequencial }}</strong></td>
+            <td>{{ n.itens?.length || 0 }} item(ns)</td>
+            <td>
+              <span class="badge" [ngClass]="n.status === 'Aberta' ? 'bg-warning text-dark' : 'bg-info'">
+                {{ n.status }}
+              </span>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-primary">Ver</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

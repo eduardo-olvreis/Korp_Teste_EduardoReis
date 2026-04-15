@@ -4,8 +4,8 @@ export interface ItemNotaFiscal {
 }
 
 export interface NotaFiscal {
-  id?: number;
+  id: number;
   numeroSequencial: number;
   status: string;
-  itens: ItemNotaFiscal[];
+  itens: any[];
 }

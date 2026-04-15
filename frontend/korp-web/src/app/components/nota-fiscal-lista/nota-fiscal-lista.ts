@@ -1,9 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { NotaFiscalService } from '../../services/nota-fiscal';
+import { NotaFiscal } from '../../models/nota-fiscal.model';
 
 @Component({
   selector: 'app-nota-fiscal-lista',
-  standalone: false,
   templateUrl: './nota-fiscal-lista.html',
-  styleUrl: './nota-fiscal-lista.css',
+  standalone: false
 })
-export class NotaFiscalLista {}
+export class NotaFiscalLista implements OnInit {
+  notas: NotaFiscal[] = [];
+
+  constructor(
+    private notaService: NotaFiscalService,
+    private cdRef: ChangeDetectorRef
+  ) { }
+
+  ngOnInit(): void {
+    this.notaService.getNotas().subscribe({
+      next: (dados) => {
+        this.notas = dados;
+        this.cdRef.detectChanges();
+      }
+    });
+  }
+}
