@@ -1,7 +1,9 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-primary">Notas Fiscais</h2>
-    <a routerLink="/notas/nova" class="btn btn-success">Nova Nota</a>
+    <h2 class="text-primary"><i class="bi bi-file-earmark-text"></i> Notas Fiscais</h2>
+    <a routerLink="/notas/nova" class="btn btn-success">
+      <i class="bi bi-plus-circle"></i> Nova Nota Fiscal
+    </a>
   </div>
 
   <div class="card shadow-sm">
@@ -27,9 +29,24 @@
               </span>
             </td>
             <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary" (click)="verDetalhes(n)">
-                <i class="bi bi-search"></i> Ver
-              </button>
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-sm btn-outline-primary" (click)="verDetalhes(n)" title="Ver Detalhes">
+                  <i class="bi bi-search"></i> Ver
+                </button>
+
+                <button *ngIf="n.status === 'Aberta'" 
+                        class="btn btn-sm btn-success" 
+                        (click)="fecharNota(n)" 
+                        title="Fechar Nota">
+                  <i class="bi bi-check-lg"></i> Fechar
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="notas.length === 0">
+            <td colspan="5" class="text-center py-4 text-muted">
+              Nenhuma nota fiscal encontrada.
             </td>
           </tr>
         </tbody>

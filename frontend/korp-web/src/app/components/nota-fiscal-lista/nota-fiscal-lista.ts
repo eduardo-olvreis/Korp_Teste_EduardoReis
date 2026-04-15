@@ -40,4 +40,16 @@ export class NotaFiscalLista implements OnInit {
     }).join('\n');
     alert(`Detalhes da Nota #${nota.numeroSequencial}\nStatus: ${nota.status}\n\nItens:\n${detalhesItens}`);
   }
+
+  fecharNota(nota: any) {
+  if (confirm(`Deseja realmente fechar a nota #${nota.numeroSequencial}?`)) {
+    this.notaService.fecharNota(nota.id).subscribe({
+      next: () => {
+        alert('Nota fechada com sucesso!');
+        this.carregarDados();
+      },
+      error: (err) => alert('Erro ao fechar nota: ' + err.message)
+    });
+  }
+}
 }

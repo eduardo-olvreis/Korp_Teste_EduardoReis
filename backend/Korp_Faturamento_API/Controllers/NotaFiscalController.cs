@@ -95,7 +95,7 @@ namespace Korp.Faturamento.API.Controllers
             if (nota == null) { return NotFound("Nenhuma nota registrada com esse ID."); }
             if (nota.Status == "Fechada") { return BadRequest("A nota já está com o status 'Fechada'."); }
             var sucessoEstoque = await _service.BaixarEstoqueAsync(nota.Itens);
-            if(!sucessoEstoque) { return BadRequest("Erro ao atualizar o estoque. Verifique o saldo ou a conexão com o serviço."); }
+            if (!sucessoEstoque) { return BadRequest("Falha ao baixar estoque. Verifique se há saldo disponível."); }
             await _repository.AtualizarStatusParaFechadaAsync(id);
             return Ok("Nota fiscal fechada e estoque atualizado.");
         }

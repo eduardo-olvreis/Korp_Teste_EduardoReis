@@ -17,6 +17,8 @@ export class NotaFiscalService {
   }
 
   fecharNota(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/fechar`, {});
+    return this.http.put(`http://localhost:5144/api/NotaFiscal/${id}/fechar`, null, { 
+      responseType: 'text'
+    });
   }
 }
