@@ -1,54 +1,77 @@
-<div class="container mt-4">
+<div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-primary"><i class="bi bi-file-earmark-text"></i> Notas Fiscais</h2>
-    <a routerLink="/notas/nova" class="btn btn-success">
-      <i class="bi bi-plus-circle"></i> Nova Nota Fiscal
+    <div>
+      <h2 class="fw-bold text-dark mb-0">Notas Fiscais</h2>
+      <small class="text-muted">Gestão de emissões e finalização de faturamento</small>
+    </div>
+    <a routerLink="/notas/nova" class="btn btn-primary btn-lg shadow-sm d-flex align-items-center gap-2">
+      <i class="bi bi-plus-circle"></i>
+      Nova Nota Fiscal
     </a>
   </div>
 
-  <div class="card shadow-sm">
-    <div class="table-responsive">
-      <table class="table table-hover mb-0">
-        <thead class="table-light">
-          <tr>
-            <th>ID</th>
-            <th>Nº Sequencial</th>
-            <th>Qtd. Itens</th>
-            <th>Status</th>
-            <th class="text-center">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let n of notas">
-            <td>{{ n.id }}</td>
-            <td><strong>#{{ n.numeroSequencial }}</strong></td>
-            <td>{{ n.itens?.length || 0 }} item(ns)</td>
-            <td>
-              <span class="badge" [ngClass]="n.status === 'Aberta' ? 'bg-warning text-dark' : 'bg-info'">
-                {{ n.status }}
-              </span>
-            </td>
-            <td class="text-center">
-              <div class="d-flex justify-content-center gap-2">
-                <button class="btn btn-sm btn-outline-primary" (click)="verDetalhes(n)" title="Ver Detalhes">
-                  <i class="bi bi-search"></i> Ver
-                </button>
-                <button *ngIf="n.status === 'Aberta'" 
-                        class="btn btn-sm btn-success" 
-                        (click)="fecharNota(n)">
-                  <i class="bi bi-printer"></i> Imprimir
-                </button>
-              </div>
-            </td>
-          </tr>
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4">ID</th>
+              <th>Nº SEQUENCIAL</th>
+              <th>QTD. ITENS</th>
+              <th class="text-center">STATUS</th>
+              <th class="text-center pe-4">AÇÕES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of notas">
+              <td class="ps-4 text-muted">#{{ n.id }}</td>
+              <td><span class="fw-bold">{{ n.numeroSequencial }}</span></td>
+              <td>
+                <span class="text-secondary">
+                  <i class="bi bi-box-seam me-1"></i>
+                  {{ n.itens?.length || 0 }} item(ns)
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="badge rounded-pill px-3 py-2" 
+                      [ngClass]="n.status === 'Aberta' ? 'badge-aberta' : 'badge-fechada'">
+                  {{ n.status }}
+                </span>
+              </td>
+              <td class="text-center pe-4">
+                <div class="d-flex justify-content-center gap-2">
+                  <button class="btn btn-sm btn-outline-secondary px-3" (click)="verDetalhes(n)" [disabled]="processandoId === n.id">
+                    Ver
+                  </button>
+                  
+                  <button *ngIf="n.status === 'Aberta'" 
+                          class="btn btn-sm btn-success btn-imprimir d-flex align-items-center gap-1"
+                          (click)="fecharNota(n)"
+                          [disabled]="processandoId === n.id">
+                    
+                    <ng-container *ngIf="processandoId === n.id; else btnNormal">
+                      <span class="spinner-border spinner-border-sm"></span>
+                      Finalizando...
+                    </ng-container>
+                    
+                    <ng-template #btnNormal>
+                      <i class="bi bi-printer"></i> Imprimir
+                    </ng-template>
+                  </button>
+                </div>
+              </td>
+            </tr>
 
-          <tr *ngIf="notas.length === 0">
-            <td colspan="5" class="text-center py-4 text-muted">
-              Nenhuma nota fiscal encontrada.
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <tr *ngIf="notas.length === 0">
+              <td colspan="5" class="text-center py-5 text-muted">
+                <i class="bi bi-file-earmark-x fs-1 d-block mb-2"></i>
+                Nenhuma nota fiscal encontrada.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

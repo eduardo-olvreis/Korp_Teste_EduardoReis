@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NotaFiscalService } from '../../services/nota-fiscal';
 import { ProdutoService } from '../../services/produto';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nota-fiscal-lista',
@@ -42,28 +43,33 @@ export class NotaFiscalLista implements OnInit {
     alert(`Detalhes da Nota #${nota.numeroSequencial}\nStatus: ${nota.status}\n\nItens:\n${detalhesItens}`);
   }
 
-fecharNota(nota: any) {
+  fecharNota(nota: any) {
     if (confirm(`Deseja imprimir e fechar a nota #${nota.numeroSequencial}?`)) {
       this.processandoId = nota.id;
-
-      this.notaService.fecharNota(nota.id).subscribe({
-        next: () => {
-          alert('Nota impressa e fechada com sucesso!');
-          this.processandoId = null;
-          this.carregarDados();
-        },
-        error: (err) => {
-          this.processandoId = null;
-          console.error('Log do erro:', err);
-          if (err.status === 400) {
-            alert('Não foi possível finalizar: Verifique se há saldo disponível no estoque para todos os itens.');
-          } else if (err.status === 0 || err.status === 500) {
-            alert('Falha de comunicação: O serviço de integração está temporariamente indisponível.');
-          } else {
-            alert('Ocorreu um erro inesperado ao processar a impressão da nota.');
+      this.notaService.fecharNota(nota.id)
+        .pipe(
+          finalize(() => {
+            this.processandoId = null;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe({
+          next: () => {
+            alert('Nota impressa e fechada com sucesso!');
+            this.carregarDados();
+          },
+          error: (err) => {
+            console.error('Log do erro:', err);
+            
+            if (err.status === 400) {
+              alert('Não foi possível finalizar: Verifique se há saldo disponível no estoque para todos os itens.');
+            } else if (err.status === 0 || err.status === 500) {
+              alert('Falha de comunicação: O serviço de integração está temporariamente indisponível.');
+            } else {
+              alert('Ocorreu um erro inesperado ao processar a impressão da nota.');
+            }
           }
-        }
-      });
+        });
     }
   }
 }

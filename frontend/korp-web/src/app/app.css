@@ -1,0 +1,33 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  background-color: #f1f3f5;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.badge-estoque {
+  border-radius: 50rem;
+  padding: 0.35em 0.8em;
+  font-weight: 600;
+  color: white;
+}
+
+.align-middle td {
+  vertical-align: middle;
+}
