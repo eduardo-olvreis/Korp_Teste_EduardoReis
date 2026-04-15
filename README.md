@@ -71,3 +71,9 @@ O sistema foi projetado sob o princípio da **tolerância a falhas**. Caso o mic
     ng serve
     ```
     * Acesse: [http://localhost:4200](http://localhost:4200)
+
+---
+
+Vídeo explicativo: https://drive.google.com/file/d/1Gwj1ej4b9z6JblqXUO1qEsN6B9wmi3Jo/view?usp=sharing
+
+
