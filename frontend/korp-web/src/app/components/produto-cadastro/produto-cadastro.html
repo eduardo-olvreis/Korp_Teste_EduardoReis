@@ -1,40 +1,80 @@
-<div class="container mt-4">
-  <div class="card shadow">
-    <div class="card-header bg-dark text-white d-flex align-items-center">
-      <i class="bi bi-box-seam me-2"></i>
-      <h3 class="mb-0">Novo Produto</h3>
-    </div>
-    <div class="card-body">
-      <form (ngSubmit)="salvar()" #f="ngForm">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Código</label>
-            <input type="text" class="form-control" name="codigo" [(ngModel)]="produto.codigo" required placeholder="Ex: COD123">
-          </div>
-          <div class="col-md-8 mb-3">
-            <label class="form-label">Descrição / Nome do Produto</label>
-            <input type="text" class="form-control" name="descricao" [(ngModel)]="produto.descricao" required>
-          </div>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      
+      <div class="card shadow-sm border-0 rounded-3">
+        
+        <div class="card-header bg-pastel-success border-0 py-3">
+          <h4 class="mb-0 fw-bold d-flex align-items-center gap-2" style="color: #2e7d32;">
+            <i class="bi bi-box-seam"></i>
+            Cadastrar Novo Produto
+          </h4>
         </div>
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Preço Unitário (R$)</label>
-            <input type="number" class="form-control" name="preco" [(ngModel)]="produto.preco" min="0">
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Saldo Inicial em Estoque</label>
-            <input type="number" class="form-control" name="saldo" [(ngModel)]="produto.saldo" min="0" required>
-          </div>
+        <div class="card-body p-4">
+          <form (ngSubmit)="salvar()" #f="ngForm">
+            
+            <div class="row g-4">
+              <div class="col-md-4">
+                <label class="form-label fw-semibold text-secondary">Código</label>
+                <input type="text" class="form-control form-control-lg border-2 shadow-none" 
+                       style="border-color: #e8f5e9;" 
+                       name="codigo" [(ngModel)]="produto.codigo" 
+                       required placeholder="Ex: COD123">
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label fw-semibold text-secondary">Descrição / Nome do Produto</label>
+                <input type="text" class="form-control form-control-lg border-2 shadow-none" 
+                       style="border-color: #e8f5e9;" 
+                       name="descricao" [(ngModel)]="produto.descricao" required
+                       placeholder="Ex: Celular">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary">Preço Unitário (R$)</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white border-2 border-end-0" style="border-color: #e8f5e9;">R$</span>
+                  <input type="number" class="form-control form-control-lg border-2 shadow-none border-start-0" 
+                         style="border-color: #e8f5e9;" 
+                         name="preco" [(ngModel)]="produto.preco" min="0">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold text-secondary">Saldo Inicial</label>
+                <input type="number" class="form-control form-control-lg border-2 shadow-none" 
+                       style="border-color: #e8f5e9;" 
+                       name="saldo" [(ngModel)]="produto.saldo" min="0" required
+                       placeholder="Quantidade em estoque">
+              </div>
+            </div>
+
+            <hr class="my-4 opacity-50">
+
+            <div class="d-flex justify-content-end gap-3">
+              <button type="button" class="btn btn-light px-4 fw-medium text-secondary border" 
+                      routerLink="/produtos">
+                Cancelar
+              </button>
+              
+              <button type="submit" class="btn btn-success px-4 fw-bold shadow-sm" 
+                      [disabled]="!f.valid"
+                      style="background-color: #2e7d32; border: none;">
+                <i class="bi bi-save me-1"></i>
+                Salvar Produto
+              </button>
+            </div>
+          </form>
         </div>
 
-        <div class="d-flex justify-content-end gap-2 mt-3">
-          <button type="button" class="btn btn-secondary" routerLink="/produtos">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="!f.valid">
-            <i class="bi bi-save"></i> Salvar Produto
-          </button>
-        </div>
-      </form>
+      </div>
+
+      <p class="text-center mt-3 text-muted small">
+        <i class="bi bi-shield-check me-1"></i>
+        Este produto ficará disponível imediatamente para emissão de notas.
+      </p>
+
     </div>
   </div>
 </div>

@@ -24,10 +24,14 @@
             <tr *ngFor="let p of produtos">
               <td class="ps-4 fw-bold text-primary">{{ p.codigo }}</td>
               <td>{{ p.descricao }}</td>
-              <td class="text-center pe-4">
-                <span class="badge rounded-pill px-3 py-2" 
-                      [ngClass]="p.saldo > 10 ? 'bg-success' : (p.saldo > 0 ? 'bg-warning text-dark' : 'bg-danger')">
-                  {{ p.saldo }} Unidades
+              <td class="text-center">
+                <span class="badge-estoque" 
+                      [ngClass]="{
+                        'bg-pastel-success': p.saldo > 10,
+                        'bg-pastel-warning': p.saldo > 0 && p.saldo <= 10,
+                        'bg-pastel-danger': p.saldo === 0
+                      }">
+                  {{ p.saldo }} UNIDADES
                 </span>
               </td>
             </tr>
