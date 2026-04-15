@@ -34,13 +34,18 @@ export class NotaFiscalLista implements OnInit {
   }
 
   verDetalhes(nota: any) {
+    let valorTotalNota = 0;
     const detalhesItens = nota.itens.map((i: any) => {
       const produto = this.produtos.find(p => p.id === i.produtoId || p.Id === i.produtoId);
       const nomeProduto = produto ? (produto.descricao || produto.Descricao) : 'Produto não encontrado';
-      
-      return `- ${nomeProduto} (ID: ${i.produtoId}) | Qtd: ${i.quantidade}`;
+      return `- ${nomeProduto} | Qtd: ${i.quantidade}`;
     }).join('\n');
-    alert(`Detalhes da Nota #${nota.numeroSequencial}\nStatus: ${nota.status}\n\nItens:\n${detalhesItens}`);
+    alert(
+      `Detalhes da Nota #${nota.numeroSequencial}\n` +
+      `Status: ${nota.status}\n` +
+      `--------------------------------------\n` +
+      `Itens:\n${detalhesItens}\n`
+    );
   }
 
   fecharNota(nota: any) {

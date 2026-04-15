@@ -11,7 +11,6 @@ export class ProdutoCadastro {
   produto = {
     codigo: '',
     descricao: '',
-    preco: 0,
     saldo: 0
   };
   

@@ -9,7 +9,6 @@
       Nova Nota Fiscal
     </a>
   </div>
-
   <div class="card shadow-sm border-0">
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -43,18 +42,15 @@
                 <div class="d-flex justify-content-center gap-2">
                   <button class="btn btn-sm btn-outline-secondary px-3" (click)="verDetalhes(n)" [disabled]="processandoId === n.id">
                     Ver
-                  </button>
-                  
+                  </button>                 
                   <button *ngIf="n.status === 'Aberta'" 
                           class="btn btn-sm btn-success btn-imprimir d-flex align-items-center gap-1"
                           (click)="fecharNota(n)"
                           [disabled]="processandoId === n.id">
-                    
                     <ng-container *ngIf="processandoId === n.id; else btnNormal">
                       <span class="spinner-border spinner-border-sm"></span>
                       Finalizando...
-                    </ng-container>
-                    
+                    </ng-container>                    
                     <ng-template #btnNormal>
                       <i class="bi bi-printer"></i> Imprimir
                     </ng-template>
@@ -62,7 +58,6 @@
                 </div>
               </td>
             </tr>
-
             <tr *ngIf="notas.length === 0">
               <td colspan="5" class="text-center py-5 text-muted">
                 <i class="bi bi-file-earmark-x fs-1 d-block mb-2"></i>
