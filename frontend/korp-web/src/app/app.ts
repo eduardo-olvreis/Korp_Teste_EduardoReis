@@ -8,4 +8,12 @@ import { Component, signal } from '@angular/core';
 })
 export class App {
   protected readonly title = signal('korp-web');
+  protected readonly isMenuCollapsed = signal(true);
+  toggleMenu() {
+    this.isMenuCollapsed.update(state => !state);
+  }
+
+  fecharMenu() {
+    this.isMenuCollapsed.set(true);
+  }
 }
