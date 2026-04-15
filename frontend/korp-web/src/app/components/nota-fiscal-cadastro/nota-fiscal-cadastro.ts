@@ -11,7 +11,7 @@ import { ProdutoService } from '../../services/produto';
 export class NotaFiscalCadastro implements OnInit {
   produtos: any[] = [];
   nota = {
-    numeroSequencial: Math.floor(1000 + Math.random() * 9000),
+    numeroSequencial: 0, 
     status: 'Aberta',
     itens: [
       { produtoId: null, quantidade: 1 }
@@ -31,7 +31,7 @@ export class NotaFiscalCadastro implements OnInit {
         this.produtos = dados;
         this.cdRef.detectChanges();
       },
-      error: (err) => console.error('Erro ao carregar produtos:', err)
+      error: (err) => console.error(err)
     });
   }
 
@@ -42,13 +42,15 @@ export class NotaFiscalCadastro implements OnInit {
     }
 
   this.notaService.criarNota(this.nota as any).subscribe({
-    next: () => {
-      alert('Nota Fiscal emitida com sucesso!');
-      this.router.navigate(['/notas']);
-    },
-    error: (err) => {
-      console.error(err);
-      alert('Erro ao emitir nota.');
-    }
-  });
-}}
+    next: (notaCriada) => {
+        const num = notaCriada.numeroSequencial || notaCriada.numeroSequencial || 'nova';
+        alert(`Nota Fiscal #${num} emitida com sucesso!`);
+        this.router.navigate(['/notas']);
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erro ao emitir nota.');
+      }
+    });
+  }
+}

@@ -5,12 +5,6 @@
     </div>
     <div class="card-body">
       <form (ngSubmit)="salvar()" #notaForm="ngForm">
-        
-        <div class="mb-3">
-          <label class="form-label">Número da Nota (Gerado)</label>
-          <input type="text" class="form-control" [value]="nota.numeroSequencial" readonly>
-        </div>
-
         <div class="mb-3">
           <label class="form-label">Produto</label>
           <select class="form-select" name="produtoId" [(ngModel)]="nota.itens[0].produtoId" required>
