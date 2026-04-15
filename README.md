@@ -1,62 +1,73 @@
-📑 Projeto Korp: Sistema de Faturamento e Estoque
-Desenvolvido por: Eduardo Reis
-🚀 Sobre o Projeto
-Este sistema é uma solução de faturamento baseada em Microsserviços, desenvolvida para o teste técnico da Korp. A aplicação permite o cadastro de produtos, gerenciamento de estoque e emissão de Notas Fiscais com baixa automática de saldo.
+# 📑 Projeto Korp: Sistema de Faturamento e Estoque
 
-🏗️ Arquitetura da Solução
-A aplicação foi estruturada seguindo o modelo de microsserviços para garantir escalabilidade e independência de domínios:
+> **Desenvolvido por:** Eduardo Reis  
+> **Status do Projeto:** Concluído ✅
 
-Serviço de Estoque: Responsável pelo CRUD de produtos e controle de saldos.
+---
 
-Serviço de Faturamento: Responsável pela emissão de notas fiscais e integração com o estoque.
+## 🚀 Sobre o Projeto
+Este sistema é uma solução de faturamento baseada em **Microsserviços**, desenvolvida especificamente para o teste técnico da **Korp**. A aplicação abrange desde o cadastro base de produtos até a emissão complexa de Notas Fiscais, garantindo a integridade dos dados e a baixa automática de saldo em estoque.
 
-Frontend Angular: Interface SPA (Single Page Application) moderna e responsiva.
+---
 
-🛠️ Detalhamento Técnico
-Frontend (Angular)
-Ciclos de Vida: Utilização do ngOnInit para inicialização de dados e ChangeDetectorRef para controle fino de reatividade.
+## 🏗️ Arquitetura da Solução
+A aplicação foi estruturada seguindo o modelo de microsserviços para garantir escalabilidade, resiliência e independência de domínios:
 
-Estado e Reatividade: Implementação de Angular Signals para gerenciamento de estado da UI e RxJS (Observables e operadores como finalize) para fluxos de dados assíncronos.
+* **📦 Serviço de Estoque:** Gerencia o ciclo de vida dos produtos (CRUD) e o controle rigoroso de saldos.
+* **🧾 Serviço de Faturamento:** Responsável pela emissão de notas fiscais e orquestração da integração com o estoque.
+* **💻 Frontend Angular:** Interface SPA (Single Page Application) moderna, focada em UX e responsividade.
 
-Componentes Visuais: Interface construída com Bootstrap 5 (estilização customizada em tons pastéis) e Bootstrap Icons.
+---
 
-Backend (C# / .NET)
-Framework: ASP.NET Core Web API (.NET 9).
+## 🛠️ Detalhamento Técnico
 
-Persistência: Entity Framework Core com conexão real a banco de dados.
+### **Frontend (Angular)**
+* **Ciclos de Vida:** Utilização estratégica do `ngOnInit` para carga de dados e `ChangeDetectorRef` para garantir a fluidez da UI.
+* **Estado e Reatividade:** Implementação de **Angular Signals** para controle de estado síncrono da interface e **RxJS** (Observables e operadores como `finalize`) para fluxos de dados assíncronos e controle de *loading states*.
+* **Componentes Visuais:** UI construída com **Bootstrap 5**, utilizando uma paleta de cores pastéis customizada via CSS global e **Bootstrap Icons**.
 
-Consultas: Uso intensivo de LINQ para filtragem e manipulação de dados.
+### **Backend (C# / .NET)**
+* **Framework:** ASP.NET Core Web API (**.NET 9**).
+* **Persistência:** **Entity Framework Core** com conexão real a banco de dados relacional.
+* **Consultas:** Uso intensivo de **LINQ** para filtragem, projeções e manipulação eficiente de coleções de dados.
+* **Tratamento de Erros:** Implementação de Middleware de exceções global e retornos baseados em **HTTP Status Codes** semânticos.
 
-Tratamento de Erros: Middleware de exceções global e retornos baseados em HTTP Status Codes semânticos.
+---
 
-🛡️ Resiliência e Falhas
-O sistema foi projetado para ser resiliente. Caso o microsserviço de Estoque fique indisponível, o serviço de Faturamento e o Frontend tratam a falha, informando o usuário via alertas amigáveis, sem interromper o funcionamento global da aplicação.
+## 🛡️ Resiliência e Falhas
+O sistema foi projetado sob o princípio da **tolerância a falhas**. Caso o microsserviço de Estoque fique indisponível:
+1.  O serviço de Faturamento identifica a queda.
+2.  O Frontend captura a exceção de conexão.
+3.  O usuário recebe um feedback amigável via alerta, impedindo inconsistências no banco sem interromper a navegação global.
 
-⚙️ Como Executar o Projeto
-Pré-requisitos
-.NET SDK (9.0+)
+---
 
-Node.js & Angular CLI
+## ⚙️ Como Executar o Projeto
 
-SQL Server (ou o banco que você utilizou)
+### **📌 Pré-requisitos**
+* [.NET SDK 9.0+](https://dotnet.microsoft.com/download/dotnet/9.0)
+* [Node.js](https://nodejs.org/) & [Angular CLI](https://angular.io/cli)
+* SQL Server (ou o banco configurado no seu ambiente)
 
-Passo a Passo
-Clonar o repositório:
+### **⌨️ Passo a Passo**
 
-Bash
-git clone https://github.com/SeuUsuario/Korp_Teste_EduardoReis.git
-Configurar os Backends:
+1.  **Clonar o repositório:**
+    ```bash
+    git clone [https://github.com/SeuUsuario/Korp_Teste_EduardoReis.git](https://github.com/SeuUsuario/Korp_Teste_EduardoReis.git)
+    ```
 
-Navegue até as pastas ServicoEstoque e ServicoFaturamento.
+2.  **Configurar os Backends:**
+    * Abra dois terminais distintos.
+    * Em cada pasta (`ServicoEstoque` e `ServicoFaturamento`), execute:
+    ```bash
+    dotnet ef database update
+    dotnet run
+    ```
 
-Execute dotnet ef database update para criar os bancos.
-
-Execute dotnet run em cada terminal.
-
-Configurar o Frontend:
-
-Navegue até a pasta do projeto Angular.
-
-Execute npm install e depois ng serve.
-
-Acesse http://localhost:4200.
+3.  **Configurar o Frontend:**
+    * Em um novo terminal, entre na pasta do projeto Angular:
+    ```bash
+    npm install
+    ng serve
+    ```
+    * Acesse: [http://localhost:4200](http://localhost:4200)
