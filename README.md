@@ -58,7 +58,7 @@ O sistema foi projetado sob o princípio da **tolerância a falhas**. Caso o mic
 
 2.  **Configurar os Backends:**
     * Abra dois terminais distintos.
-    * Em cada pasta (`ServicoEstoque` e `ServicoFaturamento`), execute:
+    * Em cada pasta (`Korp_Estoque_API` e `Korp_Faturamento_API`), execute:
     ```bash
     dotnet ef database update
     dotnet run
