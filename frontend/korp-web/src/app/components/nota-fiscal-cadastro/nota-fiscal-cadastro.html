@@ -1,65 +1,69 @@
 <div class="container py-5">
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      
-      <div class="card shadow-sm border-0 rounded-3">
-        
+    <div class="col-md-10 col-lg-8"> <div class="card shadow-sm border-0 rounded-3">
         <div class="card-header bg-pastel-info border-0 py-3">
           <h4 class="mb-0 fw-bold d-flex align-items-center gap-2" style="color: #1565c0;">
             <i class="bi bi-file-earmark-plus"></i>
             Emitir Nova Nota Fiscal
           </h4>
         </div>
-
         <div class="card-body p-4">
-          <form (ngSubmit)="salvar()" #notaForm="ngForm">
-            
-            <div class="mb-4">
-              <label class="form-label fw-semibold text-secondary">Produto</label>
-              <select class="form-select form-select-lg border-2 shadow-none" 
-                      style="border-color: #e3f2fd; font-size: 1rem;" 
-                      name="produtoId" 
-                      [(ngModel)]="nota.itens[0].produtoId" required>
-                <option [ngValue]="null" disabled>Selecione um produto do estoque...</option>
-                <option *ngFor="let p of produtos" [ngValue]="p.id || p.Id">
-                  {{ p.descricao || p.Descricao }} (Saldo: {{ p.saldo || p.Saldo }})
-                </option>
-              </select>
-            </div>
+          <form (ngSubmit)="salvar()" #notaForm="ngForm">          
+            <div *ngFor="let item of nota.itens; let i = index" class="mb-3 p-3 border rounded-3 bg-light position-relative">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-secondary">Item #{{ i + 1 }}</span>
+                <button *ngIf="nota.itens.length > 1" type="button" class="btn btn-sm btn-outline-danger border-0" (click)="removerItem(i)">
+                  <i class="bi bi-trash"></i> Remover
+                </button>
+              </div>
+              <div class="row g-3">
+                <div class="col-md-8">
+                  <label class="form-label small fw-bold text-secondary">Produto</label>
+                  <select class="form-select border-2 shadow-none" 
+                          style="border-color: #e3f2fd;" 
+                          [name]="'produtoId' + i" 
+                          [(ngModel)]="item.produtoId" required>
+                    <option [ngValue]="null" disabled>Selecione um produto...</option>
+                    <option *ngFor="let p of produtos" [ngValue]="p.id || p.Id">
+                      {{ p.descricao || p.Descricao }} (Saldo: {{ p.saldo || p.Saldo }})
+                    </option>
+                  </select>
+                </div>
 
-            <div class="mb-4">
-              <label class="form-label fw-semibold text-secondary">Quantidade</label>
-              <input type="number" class="form-control form-control-lg border-2 shadow-none" 
-                     style="border-color: #e3f2fd;" 
-                     name="quantidade" 
-                     [(ngModel)]="nota.itens[0].quantidade" 
-                     min="1" required placeholder="Ex: 10">
+                <div class="col-md-4">
+                  <label class="form-label small fw-bold text-secondary">Quantidade</label>
+                  <input type="number" class="form-control border-2 shadow-none" 
+                         style="border-color: #e3f2fd;" 
+                         [name]="'quantidade' + i" 
+                         [(ngModel)]="item.quantidade" 
+                         min="1" required placeholder="Qtd">
+                </div>
+              </div>
             </div>
-
+            <div class="d-grid mt-3">
+              <button type="button" class="btn btn-outline-primary btn-sm border-dashed" (click)="adicionarItem()">
+                <i class="bi bi-plus-circle me-1"></i> Adicionar mais um produto
+              </button>
+            </div>
             <hr class="my-4 opacity-50">
-
             <div class="d-flex justify-content-end gap-3">
               <button type="button" class="btn btn-light px-4 fw-medium text-secondary border" 
                       routerLink="/notas">
                 Cancelar
               </button>
-              
               <button type="submit" class="btn btn-primary px-4 fw-bold shadow-sm" 
                       [disabled]="!notaForm.form.valid">
                 <i class="bi bi-check-circle me-1"></i>
-                Emitir
+                Finalizar Emissão
               </button>
             </div>
           </form>
         </div>
-
       </div>
-
       <p class="text-center mt-3 text-muted small">
         <i class="bi bi-info-circle me-1"></i>
-        A emissão gerará uma nota com status <strong>Aberta</strong>.
+        Esta nota conterá <strong>{{ nota.itens.length }}</strong> produto(s) no faturamento.
       </p>
-
     </div>
   </div>
 </div>
