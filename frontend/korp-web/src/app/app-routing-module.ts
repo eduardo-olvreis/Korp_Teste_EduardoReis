@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProdutoLista } from './components/produto-lista/produto-lista';
 import { NotaFiscalLista } from './components/nota-fiscal-lista/nota-fiscal-lista';
 import { NotaFiscalCadastro } from './components/nota-fiscal-cadastro/nota-fiscal-cadastro';
+import { ProdutoCadastro } from './components/produto-cadastro/produto-cadastro';
 
 const routes: Routes = [
   { path: 'produtos', component: ProdutoLista },
   { path: 'notas', component: NotaFiscalLista },
   { path: 'notas/nova', component: NotaFiscalCadastro },
+  { path: 'produtos/novo', component: ProdutoCadastro },
   { path: '', redirectTo: '/produtos', pathMatch: 'full' }
 ];
 

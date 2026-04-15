@@ -7,23 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { ProdutoLista } from './components/produto-lista/produto-lista';
 import { NotaFiscalLista } from './components/nota-fiscal-lista/nota-fiscal-lista';
 import { NotaFiscalCadastro } from './components/nota-fiscal-cadastro/nota-fiscal-cadastro';
+import { ProdutoCadastro } from './components/produto-cadastro/produto-cadastro';
 
 @NgModule({
-  declarations: [
-    App, 
-    ProdutoLista, 
-    NotaFiscalLista, 
-    NotaFiscalCadastro
-  ],
-  imports: [
-    BrowserModule, 
-    AppRoutingModule,
-    FormsModule
-  ],
-  providers: [
-    provideHttpClient(),
-    provideBrowserGlobalErrorListeners(),
-  ],
+  declarations: [App, ProdutoLista, NotaFiscalLista, NotaFiscalCadastro, ProdutoCadastro],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  providers: [provideHttpClient(), provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })
 export class AppModule {}
